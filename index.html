@@ -8,11 +8,14 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: #0b0b0b;
+    background: #0a0a0a;
     color: #eaeaea;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
@@ -49,55 +52,44 @@ body::before {
     font-family: 'Cormorant Garamond', serif;
     font-size: 4rem;
     letter-spacing: 3px;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 1.5s ease;
 }
 
-.hero h1.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* TEXT BLOCK */
-.text-block {
-    height: 70vh;
+/* SCROLL TEXT */
+.text {
+    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 20px;
+    padding: 20px;
 }
 
-.text-block p {
+.text p {
+    font-size: 1.4rem;
     max-width: 600px;
-    font-size: 1.3rem;
-    line-height: 1.8;
     color: #cfcfcf;
     opacity: 0;
-    transform: translateY(40px);
-    transition: 1s ease;
 }
 
-.text-block.show p {
-    opacity: 1;
-    transform: translateY(0);
+/* IMAGE SECTION */
+.image-section {
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* FULL IMAGE */
-.full {
-    height: 90vh;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.2);
 }
 
 /* GALLERY */
 .gallery {
-    padding: 80px 20px;
+    padding: 100px 20px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 18px;
+    gap: 20px;
 }
 
 .gallery img {
@@ -106,32 +98,7 @@ body::before {
     object-fit: cover;
     border-radius: 14px;
     opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: 0.8s ease;
-}
-
-.gallery img.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-.gallery img:hover {
-    transform: scale(1.05);
-}
-
-/* LIGHTBOX */
-.lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.95);
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.lightbox img {
-    max-width: 90%;
-    max-height: 90%;
+    transform: translateY(50px);
 }
 
 /* FOOTER */
@@ -141,7 +108,7 @@ body::before {
     align-items: center;
     justify-content: center;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: #888;
 }
 </style>
@@ -149,59 +116,58 @@ body::before {
 
 <body>
 
-<!-- HERO -->
 <section class="hero">
-    <h1 id="heroText">Nuh</h1>
+    <h1>Nuh</h1>
 </section>
 
-<!-- TEXT -->
-<section class="text-block">
-    <p>
-        A life unfolding, one quiet moment at a time.
-    </p>
+<section class="text">
+    <p>A life unfolding, one quiet moment at a time.</p>
 </section>
 
-<!-- IMAGE -->
-<div class="full" style="background-image:url('images/IMG-20250813-WA0013.jpg')"></div>
-
-<!-- TEXT -->
-<section class="text-block">
-    <p>
-        Not every moment needs words.
-    </p>
+<section class="image-section">
+    <img src="images/IMG-20250813-WA0013.jpg">
 </section>
 
-<!-- GALLERY -->
+<section class="text">
+    <p>Not everything needs to be said.</p>
+</section>
+
 <div class="gallery"></div>
 
-<!-- FOOTER -->
 <div class="footer">
     A story still being written.
 </div>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-    <img id="lightbox-img">
-</div>
-
 <script>
-// HERO
-window.onload = () => {
-    document.getElementById('heroText').classList.add('show');
-};
+gsap.registerPlugin(ScrollTrigger);
 
-// SCROLL REVEAL
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.classList.add('show');
+// TEXT FADE IN
+gsap.utils.toArray(".text p").forEach(el => {
+    gsap.to(el, {
+        opacity: 1,
+        y: -20,
+        duration: 1.2,
+        scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
         }
     });
-}, { threshold: 0.2 });
+});
 
-document.querySelectorAll('.text-block').forEach(el => observer.observe(el));
+// IMAGE ZOOM EFFECT
+gsap.utils.toArray(".image-section img").forEach(img => {
+    gsap.to(img, {
+        scale: 1,
+        scrollTrigger: {
+            trigger: img,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+        }
+    });
+});
 
-// IMAGES
+// GALLERY IMAGES
 const images = [
   "IMG-20250726-WA0007.jpg",
   "IMG-20250813-WA0013.jpg",
@@ -241,22 +207,18 @@ images.forEach((file, i) => {
     const img = document.createElement('img');
     img.src = `images/${file}`;
 
-    img.onload = () => {
-        setTimeout(() => img.classList.add('show'), i * 80);
-    };
-
-    img.onclick = () => {
-        document.getElementById('lightbox').style.display = 'flex';
-        document.getElementById('lightbox-img').src = img.src;
-    };
-
     gallery.appendChild(img);
-});
 
-// LIGHTBOX CLOSE
-document.getElementById('lightbox').onclick = () => {
-    document.getElementById('lightbox').style.display = 'none';
-};
+    gsap.to(img, {
+        opacity: 1,
+        y: 0,
+        delay: i * 0.05,
+        scrollTrigger: {
+            trigger: img,
+            start: "top 90%",
+        }
+    });
+});
 </script>
 
 </body>
