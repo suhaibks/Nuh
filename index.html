@@ -9,28 +9,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: #0a0a0a;
-    color: #e8e8e8;
+    background: #0b0b0b;
+    color: #eaeaea;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
 }
 
-/* FILM GRAIN */
+/* GRAIN */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     background: url('https://grainy-gradients.vercel.app/noise.svg');
-    opacity: 0.05;
+    opacity: 0.04;
     pointer-events: none;
-    z-index: 999;
 }
 
 /* HERO */
@@ -47,55 +42,54 @@ body::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.55);
-}
-
-.hero-content {
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 1.5s ease;
-}
-
-.hero-content.show {
-    opacity: 1;
-    transform: translateY(0);
+    background: rgba(0,0,0,0.6);
 }
 
 .hero h1 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 4rem;
     letter-spacing: 3px;
-}
-
-/* TEXT SECTION */
-.section {
-    padding: 120px 20px;
-    max-width: 700px;
-    margin: auto;
-    text-align: center;
     opacity: 0;
-    transform: translateY(60px);
-    transition: 1.2s ease;
+    transform: translateY(40px);
+    transition: 1.5s ease;
 }
 
-.section.show {
+.hero h1.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-.section p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #bdbdbd;
+/* TEXT BLOCK */
+.text-block {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
 }
 
-/* PARALLAX */
-.full-image {
-    height: 80vh;
-    background: url('images/IMG-20250813-WA0013.jpg') center/cover fixed no-repeat;
+.text-block p {
+    max-width: 600px;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: #cfcfcf;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s ease;
+}
+
+.text-block.show p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* FULL IMAGE */
+.full {
+    height: 90vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 /* GALLERY */
@@ -103,23 +97,22 @@ body::before {
     padding: 80px 20px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
+    gap: 18px;
 }
 
 .gallery img {
     width: 100%;
-    height: 280px;
+    height: 300px;
     object-fit: cover;
     border-radius: 14px;
     opacity: 0;
-    transform: scale(0.92);
+    transform: translateY(40px) scale(0.95);
     transition: 0.8s ease;
-    cursor: pointer;
 }
 
 .gallery img.show {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
 }
 
 .gallery img:hover {
@@ -130,11 +123,10 @@ body::before {
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.96);
+    background: rgba(0,0,0,0.95);
     display: none;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(10px);
 }
 
 .lightbox img {
@@ -144,11 +136,13 @@ body::before {
 
 /* FOOTER */
 .footer {
-    text-align: center;
-    padding: 80px 20px;
-    font-size: 0.85rem;
-    color: #777;
-    letter-spacing: 1px;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: #888;
 }
 </style>
 </head>
@@ -157,28 +151,32 @@ body::before {
 
 <!-- HERO -->
 <section class="hero">
-    <div class="hero-content" id="heroText">
-        <h1>Nuh</h1>
-    </div>
+    <h1 id="heroText">Nuh</h1>
 </section>
 
 <!-- TEXT -->
-<section class="section">
+<section class="text-block">
     <p>
-        A collection of moments, quietly captured —
-        fragments of time that tell a story without words.
+        A life unfolding, one quiet moment at a time.
     </p>
 </section>
 
-<!-- PARALLAX -->
-<div class="full-image"></div>
+<!-- IMAGE -->
+<div class="full" style="background-image:url('images/IMG-20250813-WA0013.jpg')"></div>
+
+<!-- TEXT -->
+<section class="text-block">
+    <p>
+        Not every moment needs words.
+    </p>
+</section>
 
 <!-- GALLERY -->
 <div class="gallery"></div>
 
 <!-- FOOTER -->
 <div class="footer">
-    A life, in moments.
+    A story still being written.
 </div>
 
 <!-- LIGHTBOX -->
@@ -187,7 +185,7 @@ body::before {
 </div>
 
 <script>
-// HERO ANIMATION
+// HERO
 window.onload = () => {
     document.getElementById('heroText').classList.add('show');
 };
@@ -201,9 +199,9 @@ const observer = new IntersectionObserver(entries => {
     });
 }, { threshold: 0.2 });
 
-document.querySelectorAll('.section').forEach(el => observer.observe(el));
+document.querySelectorAll('.text-block').forEach(el => observer.observe(el));
 
-// IMAGE LIST (YOUR FILES)
+// IMAGES
 const images = [
   "IMG-20250726-WA0007.jpg",
   "IMG-20250813-WA0013.jpg",
@@ -239,25 +237,25 @@ const images = [
 
 const gallery = document.querySelector('.gallery');
 
-images.forEach(file => {
-  const img = document.createElement('img');
-  img.src = `images/${file}`;
+images.forEach((file, i) => {
+    const img = document.createElement('img');
+    img.src = `images/${file}`;
 
-  img.onload = () => {
-    setTimeout(() => img.classList.add('show'), 100);
-  };
+    img.onload = () => {
+        setTimeout(() => img.classList.add('show'), i * 80);
+    };
 
-  img.onclick = () => {
-    document.getElementById('lightbox').style.display = 'flex';
-    document.getElementById('lightbox-img').src = img.src;
-  };
+    img.onclick = () => {
+        document.getElementById('lightbox').style.display = 'flex';
+        document.getElementById('lightbox-img').src = img.src;
+    };
 
-  gallery.appendChild(img);
+    gallery.appendChild(img);
 });
 
-// CLOSE LIGHTBOX
+// LIGHTBOX CLOSE
 document.getElementById('lightbox').onclick = () => {
-  document.getElementById('lightbox').style.display = 'none';
+    document.getElementById('lightbox').style.display = 'none';
 };
 </script>
 
