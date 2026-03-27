@@ -106,22 +106,9 @@
 
     .photo img {
       width: 100%;
-      height: calc(100% - 52px);
+      height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    .photo figcaption {
-      min-height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.4rem 0.75rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-      background: linear-gradient(180deg, #fff, #fff8f1);
-      border-top: 1px solid #f0e7df;
-      text-align: center;
     }
 
     footer {
@@ -144,7 +131,7 @@
     <section class="section" aria-label="About">
       <h2>Beautiful Moments Together</h2>
       <p>
-        Every photo has its own title, and the gallery now uses a stylish mixed-size grid so all images do not look exactly the same.
+        A clean mixed-size gallery layout that feels modern and keeps attention on the photos.
       </p>
     </section>
 
@@ -155,34 +142,30 @@
 
   <script>
     const images = [
-      { file: "IMG-20251102-WA0016.jpg", title: "Warm Family Smile", style: "tall" },
-      { file: "IMG-20251102-WA0020.jpg", title: "Golden Hour Joy", style: "wide" },
-      { file: "IMG_20250911_215155.jpg", title: "Little Explorer", style: "" },
-      { file: "IMG-20250813-WA0013.jpg", title: "Playful Afternoon", style: "tall" },
-      { file: "IMG_20260208_191304.jpg", title: "Bright Eyes", style: "" },
-      { file: "IMG-20260309-WA0021.jpg", title: "Happy Together", style: "wide" },
-      { file: "IMG-20260308-WA0055.jpg", title: "Sweet Candid", style: "" },
-      { file: "IMG-20251023-WA0015.jpg", title: "Cozy Day Out", style: "tall" },
-      { file: "Screenshot_2025-09-04-21-41-27-584_com.whatsapp.png", title: "Special Chat Memory", style: "wide" },
-      { file: "IMG-20250726-WA0007.jpg", title: "Tiny Steps", style: "" }
+      { file: "IMG-20251102-WA0016.jpg", style: "tall" },
+      { file: "IMG-20251102-WA0020.jpg", style: "wide" },
+      { file: "IMG_20250911_215155.jpg", style: "" },
+      { file: "IMG-20250813-WA0013.jpg", style: "tall" },
+      { file: "IMG_20260208_191304.jpg", style: "" },
+      { file: "IMG-20260309-WA0021.jpg", style: "wide" },
+      { file: "IMG-20260308-WA0055.jpg", style: "" },
+      { file: "IMG-20251023-WA0015.jpg", style: "tall" },
+      { file: "Screenshot_2025-09-04-21-41-27-584_com.whatsapp.png", style: "wide" },
+      { file: "IMG-20250726-WA0007.jpg", style: "" }
     ];
 
     const gallery = document.getElementById("gallery");
 
-    images.forEach(({ file, title, style }, index) => {
+    images.forEach(({ file, style }, index) => {
       const figure = document.createElement("figure");
       figure.className = `photo ${style}`.trim();
 
       const img = document.createElement("img");
       img.src = `images/${file}`;
-      img.alt = `${title} - photo ${index + 1}`;
+      img.alt = `Memory photo ${index + 1}`;
       img.loading = "lazy";
 
-      const caption = document.createElement("figcaption");
-      caption.textContent = title;
-
       figure.appendChild(img);
-      figure.appendChild(caption);
       gallery.appendChild(figure);
     });
   </script>
