@@ -36,7 +36,7 @@ body::before {
 /* HERO */
 .hero {
     height: 100vh;
-    background: url('images/img1.jpg') center/cover no-repeat;
+    background: url('images/IMG-20250726-WA0007.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,10 +68,9 @@ body::before {
     font-family: 'Cormorant Garamond', serif;
     font-size: 4rem;
     letter-spacing: 3px;
-    font-weight: 500;
 }
 
-/* SCROLL TEXT */
+/* TEXT SECTION */
 .section {
     padding: 120px 20px;
     max-width: 700px;
@@ -93,10 +92,10 @@ body::before {
     color: #bdbdbd;
 }
 
-/* PARALLAX IMAGE */
+/* PARALLAX */
 .full-image {
     height: 80vh;
-    background: url('images/img2.jpg') center/cover fixed no-repeat;
+    background: url('images/IMG-20250813-WA0013.jpg') center/cover fixed no-repeat;
 }
 
 /* GALLERY */
@@ -204,30 +203,61 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.section').forEach(el => observer.observe(el));
 
-// GALLERY AUTO LOAD
+// IMAGE LIST (YOUR FILES)
+const images = [
+  "IMG-20250726-WA0007.jpg",
+  "IMG-20250813-WA0013.jpg",
+  "IMG-20251023-WA0015.jpg",
+  "IMG-20251102-WA0016.jpg",
+  "IMG-20251102-WA0020.jpg",
+  "IMG-20260308-WA0055.jpg",
+  "IMG-20260309-WA0021.jpg",
+  "IMG_20250911_215155.jpg",
+  "IMG_20260208_191304.jpg",
+  "IMG_9737.jpeg",
+  "IMG_9738.jpeg",
+  "IMG_9739.jpeg",
+  "IMG_9740.jpeg",
+  "IMG_9743.jpeg",
+  "IMG_9745.jpeg",
+  "IMG_9747.jpeg",
+  "IMG_9754.jpeg",
+  "IMG_9758.jpeg",
+  "IMG_9759.jpeg",
+  "IMG_9760.jpeg",
+  "IMG_9761.jpeg",
+  "IMG_9762.jpeg",
+  "IMG_9764.jpeg",
+  "IMG_9765.jpeg",
+  "IMG_9766.jpeg",
+  "IMG_9767.jpeg",
+  "IMG_9768.jpeg",
+  "IMG_9769.jpeg",
+  "IMG_9770.jpeg",
+  "IMG_9843.jpeg"
+];
+
 const gallery = document.querySelector('.gallery');
 
-for (let i = 1; i <= 100; i++) {
-    const img = document.createElement('img');
-    img.src = `images/img${i}.jpg`;
+images.forEach(file => {
+  const img = document.createElement('img');
+  img.src = `images/${file}`;
 
-    img.onerror = () => img.remove();
+  img.onload = () => {
+    setTimeout(() => img.classList.add('show'), 100);
+  };
 
-    img.onload = () => {
-        setTimeout(() => img.classList.add('show'), 150);
-    };
+  img.onclick = () => {
+    document.getElementById('lightbox').style.display = 'flex';
+    document.getElementById('lightbox-img').src = img.src;
+  };
 
-    img.onclick = () => {
-        document.getElementById('lightbox').style.display = 'flex';
-        document.getElementById('lightbox-img').src = img.src;
-    };
-
-    gallery.appendChild(img);
-}
+  gallery.appendChild(img);
+});
 
 // CLOSE LIGHTBOX
 document.getElementById('lightbox').onclick = () => {
-    document.getElementById('lightbox').style.display = 'none';
+  document.getElementById('lightbox').style.display = 'none';
 };
 </script>
 
