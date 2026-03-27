@@ -1,86 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuh Turns One</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --text: #2d2d2d;
+      --card: #ffffff;
+      --accent: #d99873;
+      --muted: #6c6c6c;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
 
-<title>Nuh Turns One</title>
+    * {
+      box-sizing: border-box;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #faf7f2;
-    color: #2d2d2d;
-}
+    .hero {
+      min-height: 70vh;
+      padding: 2rem 1rem;
+      background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+        url("images/IMG_20260208_191304.jpg") center/cover no-repeat;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #fff;
+    }
 
-/* HERO */
-.hero {
-    height: 90vh;
-    background: url('images/img1.jpg') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-}
+    .hero h1 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: 0.02em;
+    }
 
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-}
+    .hero p {
+      margin: 0.8rem 0 0;
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      opacity: 0.95;
+    }
 
-/* SECTION */
-.section {
-    padding: 60px 20px;
-    text-align: center;
-}
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+    }
 
-/* GALLERY */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    padding: 20px;
-}
+    .section h2 {
+      margin: 0 0 0.5rem;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+    }
 
-.gallery img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-</style>
+    .section p {
+      margin: 0 auto;
+      max-width: 700px;
+      color: var(--muted);
+    }
+
+    .gallery {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .photo {
+      margin: 0;
+      background: var(--card);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo figcaption {
+      padding: 0.7rem 0.9rem 0.9rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+  </style>
 </head>
-
 <body>
+  <header class="hero">
+    <div>
+      <h1>Nuh Turns One</h1>
+      <p>A year full of love, laughter, and beautiful memories.</p>
+    </div>
+  </header>
 
-<!-- HERO -->
-<div class="hero">
-    <h1>Nuh Turns One</h1>
-</div>
+  <main>
+    <section class="section" aria-label="About">
+      <h2>Our Little Story</h2>
+      <p>
+        This page now uses your real image filenames, so the gallery loads correctly and looks clean on phones and desktops.
+      </p>
+    </section>
 
-<!-- TEXT -->
-<div class="section">
-    <p>A year full of love, laughter, and beautiful memories.</p>
-</div>
+    <section class="gallery" id="gallery" aria-label="Photo gallery"></section>
+  </main>
 
-<!-- GALLERY -->
-<div class="gallery"></div>
+  <footer>Made with love for Nuh 💛</footer>
 
-<script>
-// Auto load images (change number based on your images)
-const gallery = document.querySelector('.gallery');
+  <script>
+    const images = [
+      "IMG-20251102-WA0016.jpg",
+      "IMG-20251102-WA0020.jpg",
+      "IMG_20250911_215155.jpg",
+      "IMG-20250813-WA0013.jpg",
+      "IMG_20260208_191304.jpg",
+      "IMG-20260309-WA0021.jpg",
+      "IMG-20260308-WA0055.jpg",
+      "IMG-20251023-WA0015.jpg",
+      "Screenshot_2025-09-04-21-41-27-584_com.whatsapp.png",
+      "IMG-20250726-WA0007.jpg"
+    ];
 
-for (let i = 1; i <= 20; i++) {
-    const img = document.createElement('img');
-    img.src = `images/img${i}.jpg`;
-    img.onerror = () => img.remove(); // removes if image doesn't exist
-    gallery.appendChild(img);
-}
-</script>
+    const gallery = document.getElementById("gallery");
 
+    images.forEach((name, index) => {
+      const figure = document.createElement("figure");
+      figure.className = "photo";
+
+      const img = document.createElement("img");
+      img.src = `images/${name}`;
+      img.alt = `Nuh memory ${index + 1}`;
+      img.loading = "lazy";
+
+      const caption = document.createElement("figcaption");
+      caption.textContent = `Memory ${index + 1}`;
+
+      figure.appendChild(img);
+      figure.appendChild(caption);
+      gallery.appendChild(figure);
+    });
+  </script>
 </body>
 </html>
